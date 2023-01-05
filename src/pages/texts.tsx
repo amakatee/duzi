@@ -53,9 +53,9 @@ export default function Texts () {
 
     console.log(currentText, splitted)
    
-    const notExist = {
-        id: new Date().toString(),
-        character: "&",
+    const notExist : charsObj = {
+   
+        characters: "&",
         pianyin: "not in db",
         rus: "-",
         eng: "-",
@@ -160,7 +160,7 @@ export default function Texts () {
                     eng: char ? char.eng : notExist.eng,
                     show: true
                 })
-            }} className={`${switchColor(char)} hover:scale-125 transition ease-in-out`}> {char ? char?.character : notExist.character }</div> 
+            }} className={`${switchColor(char)} hover:scale-125 transition ease-in-out`}> {char ? char?.character : notExist.characters }</div> 
                 </div>)}
         </div>
 
