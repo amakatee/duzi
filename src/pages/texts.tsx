@@ -26,7 +26,7 @@ interface tObj {
 }
 export default function Texts () {
     const utils = api.useContext()
-    const addText = api?.texts?.newText?.useMutation({})
+    const addText = api?.texts?.newText?.useMutation()
 
     const {data:allText} = api?.texts?.allTexts.useQuery()
     const deleteText = api.texts.deleteText.useMutation()
