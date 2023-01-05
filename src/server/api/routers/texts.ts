@@ -14,7 +14,7 @@ export const textRouter = createTRPCRouter ({
         try {
             // return await ctx.prisma
       
-             return await ctx?.prisma?.text.create({
+             return await ctx.prisma.text.create({
                  data: {
                      text: input.text
                  }
@@ -40,7 +40,7 @@ export const textRouter = createTRPCRouter ({
         try {
             return await ctx?.prisma?.text.delete({
                 where: {
-                    id: input.id
+                    id: id
                 }
             })
 
