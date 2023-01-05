@@ -163,6 +163,9 @@ export default function Texts () {
             }} className={`${switchColor(char)} hover:scale-125 transition ease-in-out`}> {char ? char?.character : notExist.character }</div> 
                 </div>)}
         </div>
+
+
+
         <form onSubmit={(event) => {
            event.preventDefault()
            addText.mutate({
@@ -178,7 +181,7 @@ export default function Texts () {
             />
             <button type="submit">save</button>
        </form>
-        <section >
+        <div  className="w-[100vw] bg-black">
         {allText?.map((t:any, i:any) =>
       <div className="flex space-between gap-[3rem]">
           <div key={i} onClick={() => setCurrentText({...currentText, text:t.text})}  >    
@@ -190,7 +193,7 @@ export default function Texts () {
         
             )}
 
-        </section>
+        </div>
        
     
         </div>

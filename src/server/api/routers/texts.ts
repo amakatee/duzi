@@ -13,7 +13,8 @@ export const textRouter = createTRPCRouter ({
     .mutation(async({ctx, input }) => {
         try {
             // return await ctx.prisma
-             return await ctx.prisma.text.create({
+      
+             return await ctx?.prisma?.text.create({
                  data: {
                      text: input.text
                  }
