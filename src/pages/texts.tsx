@@ -150,11 +150,8 @@ export default function Texts () {
         <div className="flex min-h-[40vh] p-[1rem] gap-[2px] text-lg font-medium text-justify font-serif pt-[30vh] ">
 
             {/* {transText.map((char: any, i: any) => <div>{char.character}</div>)} */}
-            {transText.map((char: any, i) => <div>
-       
-
-
-                <div key={i} onClick={(e) => {
+            {transText.map((char: any, i:any) => <div>
+            <div key={i} onClick={(e) => {
                 e.preventDefault()
                 setDetails( {
                     ...details,
@@ -165,14 +162,8 @@ export default function Texts () {
                 })
             }} className={`${switchColor(char)} hover:scale-125 transition ease-in-out`}> {char ? char?.character : notExist.character }</div> 
                 </div>)}
-    
-
-            
         </div>
-
-    
-
-       <form onSubmit={(event) => {
+        <form onSubmit={(event) => {
            event.preventDefault()
            addText.mutate({
                text: formData.text
@@ -188,7 +179,7 @@ export default function Texts () {
             <button type="submit">save</button>
        </form>
         <section >
-        {allText?.map((t, i) =>
+        {allText?.map((t:any, i:any) =>
       <div className="flex space-between gap-[3rem]">
           <div key={i} onClick={() => setCurrentText({...currentText, text:t.text})}  >    
             <div>{t.text}</div>    
