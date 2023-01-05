@@ -30,8 +30,8 @@ export default function Texts () {
 
     const {data:allText} = api?.texts?.allTexts.useQuery()
     const deleteText = api.texts.deleteText.useMutation()
-    const m = allText?.map(m => m.text)
-    const splittedRandomText = m?.map(k => k.split(''))
+    // const m = allText?.map(m => m.text)
+    // const splittedRandomText = m?.map(k => k.split(''))
     // console.log(adwa)
     
     const [details, setDetails] = useState({
@@ -69,11 +69,11 @@ export default function Texts () {
     const {data:characters, isLoading} = api.characters.allCharacters.useQuery()
 
   
-    const transformedText =  splittedRandomText?.map(text => {
-        return text?.map(t => {
-            return characters?.find(char => char.character ===  t)
-        })
-    } )
+    // const transformedText =  splittedRandomText?.map(text => {
+    //     return text?.map(t => {
+    //         return characters?.find(char => char.character ===  t)
+    //     })
+    // } )
     
     const transText = splitted?.map(letter => {
         return characters?.find(char => char.character === letter)
@@ -123,7 +123,7 @@ export default function Texts () {
 
     return (
         <div className="bg-color  text-white min-h-[100vh]">
-            {  details && <div className="fixed max-h-[25vh] p-[1rem]  bg-[#334155] w-[100vw] flex flex-col gap-[.5rem] border-[1px] rounded-md overflow-scroll">
+            {  details.pianyin !== '' && <div className="fixed max-h-[25vh] p-[1rem]  bg-[#334155] w-[100vw] flex flex-col gap-[.5rem] border-[1px] rounded-md overflow-scroll">
                 <div> { details.pianyin}</div>
                 <div>{details.rus}</div>
                 <div>{ details.eng}</div>
