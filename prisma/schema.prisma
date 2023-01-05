@@ -32,8 +32,8 @@ model Character {
 
 model Text {
      id        String   @id @default(auto()) @map("_id") @db.ObjectId
-     title     String?
-     text      String  
+
+     text      String?
 
 
 }
