@@ -1,7 +1,9 @@
 import { type NextPage } from "next";
 import PreviousMap from "postcss/lib/previous-map";
 
-import { useState } from "react";
+
+
+import { useEffect, useState } from "react";
 
 import { api } from "../utils/api";
 
@@ -24,15 +26,59 @@ interface textObj {
 interface tObj {
     text:string
 }
-export default function Texts () {
-    const utils = api.useContext()
-    const addText = api?.texts?.newText?.useMutation()
 
-    const {data:allText} = api?.texts?.allTexts.useQuery()
-    const deleteText = api.texts.deleteText.useMutation()
-    // const m = allText?.map(m => m.text)
-    // const splittedRandomText = m?.map(k => k.split(''))
-    // console.log(adwa)
+
+export default function Texts () {
+
+    const [texts, setText] = useState<tObj[]>([])
+
+
+    const {data:allText, isLoading:textLoading} = api?.texts?.allTexts.useQuery()
+
+    const getTexts = (allText: any) => {
+        setText(allText)
+
+    }
+
+    useEffect(() => {
+        getTexts(allText)
+
+    }, [allText])
+
+
+
+     
+   
+ 
+    const deleteText = api.texts.deleteText.useMutation({
+        onSuccess: (t: any) => {
+            console.log(t)
+            const newList:any  = allText?.filter(text => text.id !== t.id)
+
+            setText(newList)
+        }
+    })
+    
+
+    
+    
+
+    console.log(texts)
+    const utils = api.useContext()
+    const addText = api?.texts?.newText?.useMutation({
+        onSuccess:( t: any) => {
+        setText(prev => [...prev, t])
+         }
+       
+       
+        
+
+    })
+
+
+    
+  
+    console.log(texts, allText)
     
     const [details, setDetails] = useState({
         pianyin: '',
@@ -51,7 +97,6 @@ export default function Texts () {
 
     const splitted = currentText?.text.split('')
 
-    console.log(currentText, splitted)
    
     const notExist : charsObj = {
    
@@ -129,6 +174,13 @@ export default function Texts () {
                 <div>{ details.eng}</div>
             
             </div>}
+            <div className="fixed bottom-0 w-[100vw] bg-black flex justify-between min-h-[8vh] p-[1rem]" >
+                <div className="text-[#F977CE]">一声</div>
+                <div className="text-[#20BF55]">二声</div>
+                <div className="text-[#01BAEF]">三声</div>
+                <div className="text-[#B8D3FE]">四声</div>
+                <div className="text-[#AF8C9D]">-</div>
+            </div>
           {/* <section className="flex min-h-[40vh] p-[1rem] gap-[2px] text-lg font-medium text-justify font-serif pt-[30vh] "> 
         {transformedText?.map((texts : any) => {
             return texts.map((char : any, i: any) => <div  key={i}>
@@ -147,7 +199,7 @@ export default function Texts () {
         })}
         </section>  */}
 
-        <div className="flex min-h-[40vh] p-[1rem] gap-[2px] text-lg font-medium text-justify font-serif pt-[30vh] ">
+        <div className=" flex flex-wrap align-center min-h-[40vh] p-[1rem] w-[90vw] gap-[2px] text-lg font-medium text-justify font-serif pt-[40vh] pb-[20vh] ">
 
             {/* {transText.map((char: any, i: any) => <div>{char.character}</div>)} */}
             {transText.map((char: any, i:any) => <div>
@@ -166,24 +218,26 @@ export default function Texts () {
 
 
 
-        <form onSubmit={(event) => {
+        <form className="w-[100vw] mb-[1rem] flex gap-[1rem] bg-color " onSubmit={(event) => {
            event.preventDefault()
            addText.mutate({
                text: formData.text
            })
+           setFormData({...formData, text:''})
 
        } }>
            <input
-           className="bg-color"
+           className="bg-color w-[80vw] p-[1rem] outline-none"
            placeholder="text"
+           type='textfield'
            value={formData.text}
            onChange={event => setFormData({...formData, text: event.target.value})}
             />
-            <button type="submit">save</button>
+            <button className=" " type="submit">save</button>
        </form>
-        <div  className="w-[100vw] bg-black">
-        {allText?.map((t:any, i:any) =>
-      <div className="flex space-between gap-[3rem]">
+        <div  className="w-[100vw]  flex flex-col gap-[.5rem] mb-[8vh]">
+        {texts?.map((t:any, i:any) =>
+      <div className="flex  justify-between ] w-[100vw] p-[1rem] border-[.1px] overflow-hidden ">
           <div key={i} onClick={() => setCurrentText({...currentText, text:t.text})}  >    
             <div>{t.text}</div>    
         </div>

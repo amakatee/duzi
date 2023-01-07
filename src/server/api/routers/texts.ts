@@ -27,7 +27,9 @@ export const textRouter = createTRPCRouter ({
     }),
     allTexts: publicProcedure.query(async({ctx}) => {
         try {
-            return await ctx?.prisma?.text.findMany()
+            return await ctx?.prisma?.text.findMany({
+                orderBy: { id: 'desc' },
+            })
 
         } catch(err) {
             console.log(err)
