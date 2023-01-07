@@ -78,7 +78,7 @@ export default function Texts () {
 
     
   
-    console.log(texts, allText)
+
     
     const [details, setDetails] = useState({
         pianyin: '',
@@ -202,8 +202,8 @@ export default function Texts () {
         <div className=" flex flex-wrap align-center min-h-[40vh] p-[1rem] w-[90vw] gap-[2px] text-lg font-medium text-justify font-serif pt-[40vh] pb-[20vh] ">
 
             {/* {transText.map((char: any, i: any) => <div>{char.character}</div>)} */}
-            {transText.map((char: any, i:any) => <div>
-            <div key={i} onClick={(e) => {
+            {transText.map((char: any, i:any) => <div key={i}>
+            <div  onClick={(e) => {
                 e.preventDefault()
                 setDetails( {
                     ...details,
@@ -237,8 +237,8 @@ export default function Texts () {
        </form>
         <div  className="w-[100vw]  flex flex-col gap-[.5rem] mb-[8vh]">
         {texts?.map((t:any, i:any) =>
-      <div className="flex  justify-between ] w-[100vw] p-[1rem] border-[.1px] overflow-hidden ">
-          <div key={i} onClick={() => setCurrentText({...currentText, text:t.text})}  >    
+      <div   key={i} className="flex  justify-between ] w-[100vw] p-[1rem] border-[.1px] overflow-hidden ">
+          <div onClick={() => setCurrentText({...currentText, text:t.text})}  >    
             <div>{t.text}</div>    
         </div>
         <div onClick={() => deleteText.mutate({id: t.id})}>delete</div>
